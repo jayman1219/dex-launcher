@@ -1,133 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>DeX Launcher</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root {
-      --bg:#1f2430;
-      --card:#2e334f;
-      --radius:16px;
-      --shadow:0 10px 25px rgba(0,0,0,0.3);
-      --gap:16px;
-      --font-stack: system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-      color:#f0f2fa;
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family: var(--font-stack);
-      background: linear-gradient(135deg,#1f2430 0%,#2f345f 80%);
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      padding:16px;
-      gap:var(--gap);
-    }
-    .header{
-      display:flex;
-      justify-content: flex-start;
-      align-items:center;
-      gap:12px;
-    }
-    .clock{
-      font-size:2rem;
-      font-weight:600;
-      padding:12px 20px;
-      background: var(--card);
-      border-radius:12px;
-      box-shadow: var(--shadow);
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
-      gap:16px;
-      flex:1;
-    }
-    .tile{
-      background: var(--card);
-      border-radius: var(--radius);
-      padding:20px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      position:relative;
-      cursor:pointer;
-      user-select:none;
-      transition:transform .15s ease, filter .15s ease;
-      box-shadow: var(--shadow);
-    }
-    .tile:active{transform:scale(.97);}
-    .tile .label{
-      margin-top:12px;
-      font-size:1rem;
-      font-weight:600;
-      line-height:1.1;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Launcher</title>
+<style>
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+  }
+  .app-button {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: block;
+  }
+  .app-button img {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+  }
+  .app-label {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+</style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="clock" id="clock">--:--:--</div>
-  </div>
+<div class="grid">
+  <a class="app-button" href="https://www.youtube.com/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+    <div class="app-label">YouTube</div>
+  </a>
+  <a class="app-button" href="https://music.youtube.com/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/YouTube_Music_icon.svg" alt="YouTube Music">
+    <div class="app-label">YouTube Music</div>
+  </a>
+  <a class="app-button" href="tel:" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Phone_font_awesome.svg" alt="Phone">
+    <div class="app-label">Phone</div>
+  </a>
+  <a class="app-button" href="https://maps.google.com/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Google_Maps_Icon.svg" alt="Maps">
+    <div class="app-label">Maps</div>
+  </a>
+  <a class="app-button" href="sms:" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Messages_icon_%282022%29.svg" alt="Messages">
+    <div class="app-label">Messages</div>
+  </a>
+  <a class="app-button" href="https://mail.google.com/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.svg" alt="Gmail">
+    <div class="app-label">Gmail</div>
+  </a>
+  <a class="app-button" href="https://www.google.com/chrome/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png" alt="Chrome">
+    <div class="app-label">Chrome</div>
+  </a>
+  <a class="app-button" href="https://www.netflix.com/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Netflix_logo.svg" alt="Netflix">
+    <div class="app-label">Netflix</div>
+  </a>
+</div>
 
-  <div class="grid" id="launcher">
-    <!-- Tiles injected by JS -->
-  </div>
-
-  <script>
-    const tiles = [
-      { name: 'YouTube', uri: 'intent://www.youtube.com/#Intent;package=com.google.android.youtube;scheme=https;end', icon: '▶' },
-      { name: 'Google Maps', uri: 'https://www.google.com/maps', icon: '📍' },
-      { name: 'Spotify', uri: 'spotify://', icon: '🎵' },
-      { name: 'Gmail', uri: 'googlegmail://', icon: '✉️' },
-      { name: 'Calendar', uri: 'content://com.android.calendar/time/', icon: '🗓️' },
-      { name: 'Browser', uri: 'https://www.google.com', icon: '🌐' },
-      { name: 'Notes', uri: 'https://keep.google.com', icon: '📝' },
-      { name: 'Settings', uri: 'intent:#Intent;action=android.settings.SETTINGS;end', icon: '⚙️' }
-    ];
-
-    function renderTiles() {
-      const container = document.getElementById('launcher');
-      container.innerHTML = '';
-      tiles.forEach(t => {
-        const div = document.createElement('div');
-        div.className = 'tile';
-        div.innerHTML = `
-          <div style="font-size:48px;">${t.icon}</div>
-          <div class="label">${t.name}</div>
-        `;
-        div.addEventListener('click', () => {
-          window.location.href = t.uri;
-        });
-        container.appendChild(div);
-      });
-    }
-
-    function startClock() {
-      function update() {
-        const now = new Date();
-        const hh = now.getHours().toString().padStart(2,'0');
-        const mm = now.getMinutes().toString().padStart(2,'0');
-        const ss = now.getSeconds().toString().padStart(2,'0');
-        document.getElementById('clock').textContent = `${hh}:${mm}:${ss}`;
-      }
-      update();
-      setInterval(update, 1000);
-    }
-
-    renderTiles();
-    startClock();
-  </script>
 </body>
 </html>
+
 
 
 
